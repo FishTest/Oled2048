@@ -308,8 +308,9 @@ while(True):
 				x = (32 * n + (30 - w) / 2 + 1)
 				y = (16 * m + 3) 
 				draw.text((x,y),num,font = fontMain ,fill = 255)
-	
-	if shouldExit:
+	oled.image(image)
+	oled.display()
+	if shouldExit is True:
 		draw.rectangle((0,0,127,63),outline=0,fill=0)
 		oled.image(image)
 		oled.display()
