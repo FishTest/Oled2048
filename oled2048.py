@@ -1,10 +1,13 @@
 # coding=UTF-8
 # 2048 Oled edition by FishX
 # BSD license, all text above must be included in any redistribution.
+# Buttons Config
+#   [0]New Game  [1]Up       [2]Exit Game
+#   [3]Left      [4]Down     [5]Right
+
 import sys
 import random
 import fnmatch
-import subprocess
 import threading
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
@@ -51,43 +54,30 @@ def exitPrepare():
 
 # KeyChecking thread
 def checkKeyPress():
+	global shouldExit
 	while True:
 		if mcp.input(0) is 0:
 			mcp.output(6,0)
-			k(0)
+			initArray()
 		elif mcp.input(1) is 0:
 			mcp.output(6,0)
-			k(1)
+			users_choice('u')
 		elif mcp.input(2) is 0:
 			mcp.output(6,0)
-			k(2)
+			exitPrepare()
 		elif mcp.input(3) is 0:
 			mcp.output(6,0)
-			k(3)
+			users_choice('l')
 		elif mcp.input(4) is 0:
 			mcp.output(6,0)
-			k(4)
+			users_choice('d')
 		elif mcp.input(5) is 0:
 			mcp.output(6,0)
-			k(5)
+			users_choice('r') 
 		sleep(0.2)
 		mcp.output(6,1)
-		keyPressed = False
-		
-# Press k to load the function
-def k(k):
-	if k is 0:
-		initArray()
-	if k is 1:
-		users_choice('u')
-	if k is 2:
-		exitPrepare()
-	if k is 3:
-		users_choice('l')
-	if k is 4:
-		users_choice('d')
-	if k is 5:
-		users_choice('r') 
+		if shouldExit:
+			break
 		
 # Get Random num 2 or 4
 def getRandom2or4():
@@ -318,13 +308,10 @@ while(True):
 				x = (32 * n + (30 - w) / 2 + 1)
 				y = (16 * m + 3) 
 				draw.text((x,y),num,font = fontMain ,fill = 255)
-	oled.image(image)
-	oled.display()
-	print shouldExit
-	if shouldExit is True:
+	
+	if shouldExit:
+		draw.rectangle((0,0,127,63),outline=0,fill=0)
+		oled.image(image)
+		oled.display()
 		break
-print "here"
-#tKeyChecking.join()
-sleep(1)
-raise SystemExit
-print "Game Over!"
+
