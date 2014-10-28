@@ -2,6 +2,7 @@ sudo apt-get install mpd python-dev python-pip python-smbus python-imaging
 
 sudo cp DejaVuSansMono.ttf /usr/share/fonts/truetype/ttf-dejavu/
 sudo fc-cache
+sudo pip install RPi.GPIO
 
 cd ~
 git clone git://git.drogon.net/wiringPi
