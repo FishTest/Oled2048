@@ -19,6 +19,11 @@ cd py-spidev
 sudo python setup.py install
 
 cd ~
+git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
+cd Adafruit_Python_GPIO
+sudo python setup.py install
+
+cd ~
 git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git
 cd Adafruit_Python_SSD1306
 sudo python setup.py install
